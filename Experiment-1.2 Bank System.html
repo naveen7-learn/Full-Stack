@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Account</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef5e9;
+        }
+
+        .card {
+            width: 320px;
+            margin: 120px auto;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 12px gray;
+            transform: scale(1.02);
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 45%;
+            padding: 8px;
+            margin: 5px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .deposit {
+            background: green;
+        }
+
+        .withdraw {
+            background: red;
+        }
+
+        button:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Bank Account</h2>
+
+    <p><b>Balance:</b> ₹<span id="bal">1000</span></p>
+
+    <input type="number" id="amt" placeholder="Enter Amount">
+
+    <br>
+    <button class="deposit" onclick="deposit()">Deposit</button>
+    <button class="withdraw" onclick="withdraw()">Withdraw</button>
+</div>
+
+<script>
+    let balance = 1000;
+
+    function deposit() {
+        let amount = Number(document.getElementById("amt").value);
+
+        if (amount <= 0) {
+            alert("Enter a valid amount");
+            return;
+        }
+
+        balance = balance + amount;
+        document.getElementById("bal").innerText = balance;
+        document.getElementById("amt").value = "";
+    }
+
+    function withdraw() {
+        let amount = Number(document.getElementById("amt").value);
+
+        if (amount <= 0) {
+            alert("Enter a valid amount");
+            return;
+        }
+
+        if (amount > balance) {
+            alert("Insufficient Balance");
+            return;
+        }
+
+        balance = balance - amount;
+        document.getElementById("bal").innerText = balance;
+        document.getElementById("amt").value = "";
+    }
+</script>
+
+</body>
+</html>
