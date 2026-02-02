@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SVG Drawing Tool</title>
+<style>
+    body {
+        background: #eef2f7;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
+    }
 
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    button {
+        background: green;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    svg {
+        border: 2px dashed #aaa;
+        border-radius: 10px;
+        background: #f9fbff;
+    }
+
+    .count {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <button onclick="undo()">Undo</button><br>
+    <svg id="canvas" width="420" height="260"></svg>
+    <div class="count">Circles drawn: <span id="count">0</span></div>
+</div>
+
+<script>
+const svg = document.getElementById("canvas");
+const countText = document.getElementById("count");
+let circles = [];
+
+svg.addEventListener("click", e => {
+    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    c.setAttribute("cx", e.offsetX);
+    c.setAttribute("cy", e.offsetY);
+    c.setAttribute("r", 8);
+    c.setAttribute("fill", "#1e90ff");
+    svg.appendChild(c);
+    circles.push(c);
+    countText.textContent = circles.length;
+});
+
+function undo() {
+    if (circles.length > 0) {
+        svg.removeChild(circles.pop());
+        countText.textContent = circles.length;
+    }
+}
+</script>
+
+</body>
+</html>
