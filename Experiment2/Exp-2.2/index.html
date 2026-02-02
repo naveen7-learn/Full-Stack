@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Filter</title>
 
+<style>
+*{ box-sizing:border-box; }
+
+body{
+    margin:0;
+    padding:40px;
+    font-family:Arial, sans-serif;
+    background:#f5f7fb;
+}
+
+h1{
+    text-align:center;
+    color:#6a0dad;
+    margin-bottom:30px;
+}
+
+.filter-box{
+    max-width:900px;
+    margin:0 auto 30px auto;
+}
+
+select{
+    padding:8px 12px;
+    border-radius:6px;
+    border:1px solid #000;
+}
+
+/* GRID */
+.products{
+    max-width:900px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .products{
+        grid-template-columns:1fr;
+    }
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.price{
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.tag{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    color:#fff;
+}
+
+.gadgets{ background:#20b2aa; }
+.fashion{ background:#4a90e2; }
+</style>
+</head>
+
+<body>
+
+<h1>Product Filter</h1>
+
+<div class="filter-box">
+    <select id="filter">
+        <option value="all">All Products</option>
+        <option value="gadgets">Gadgets</option>
+        <option value="fashion">Fashion</option>
+    </select>
+</div>
+
+<div class="products" id="productList"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const products = [
+        {name:"Smart Fitness Band", price:"₹3,999", category:"gadgets"},
+        {name:"Noise Cancelling Earbuds", price:"₹5,499", category:"gadgets"},
+        {name:"Casual Hoodie", price:"₹1,299", category:"fashion"},
+        {name:"Running Shoes", price:"₹2,899", category:"fashion"}
+    ];
+
+    const list = document.getElementById("productList");
+    const filter = document.getElementById("filter");
+
+    function render(type){
+        list.innerHTML = "";
+        for(let p of products){
+            if(type === "all" || p.category === type){
+                list.innerHTML += `
+                    <div class="card">
+                        <h3>${p.name}</h3>
+                        <div class="price">${p.price}</div>
+                        <span class="tag ${p.category}">${p.category}</span>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    filter.addEventListener("change", function(){
+        render(this.value);
+    });
+
+    render("all");
+});
+</script>
+
+</body>
+</html>
